@@ -146,5 +146,5 @@ SOCIAL_AUTH_FACEBOOK_KEY = '1561142981346876' # Facebook App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = '43ccc7c2f3550c7c97155bf4b260fc47' # Facebook App Secret
 ##SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '152896019073-ct95lqc01sdi516r0fm9pk9jdgrmmiul.apps.googleusercontent.com' # Google Consumer Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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' # Google Consumer Secret
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '152896019073-cjsh58pameasc1noaufj3bpkfav0uusr.apps.googleusercontent.com' # Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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' # Google Consumer Secret
