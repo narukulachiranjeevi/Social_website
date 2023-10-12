@@ -5,7 +5,9 @@ from .forms import ImageCreateForm
 from .models import Image
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-
+from common.decorators import ajax_required
+from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -35,6 +37,8 @@ def image_detail(request, id, slug):
     {'section': 'images',
     'image': image})
 
+
+@ajax_required
 @login_required
 @require_POST
 def image_like(request):
@@ -70,3 +74,25 @@ def image_like(request):
         except:
             pass
     return JsonResponse({'status':'error'})
+
+
+@login_required
+def image_list(request):
+    images = Image.objects.all()
+    paginator = Paginator(images, 8)
+    page = request.GET.get('page')
+    try:
+        images = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        images = paginator.page(1)
+    except EmptyPage:
+        if  request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            # If the request is AJAX and the page is out of range
+            # return an empty page
+            return HttpResponse('')
+        # If page is out of range deliver last page of results
+        images = paginator.page(paginator.num_pages)
+    if  request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request,'images/image/list_ajax.html',{'section': 'images', 'images': images})
+    return render(request,'images/image/list.html',{'section': 'images', 'images': images})
